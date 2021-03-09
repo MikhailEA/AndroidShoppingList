@@ -9,6 +9,8 @@ import androidx.room.RoomDatabase;
 @Database(entities = {Category.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
+
+    public abstract ShoppingListDao shoppingListDao();
     public static AppDatabase INSTANCE;
 
     public static AppDatabase getDBinstance(Context context) {

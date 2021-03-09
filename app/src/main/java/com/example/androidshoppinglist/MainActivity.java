@@ -2,6 +2,8 @@ package com.example.androidshoppinglist;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,7 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidshoppinglist.db.Category;
+import com.example.androidshoppinglist.viewmodel.MainActivityViewModel;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private MainActivityViewModel viewModel;
+    private TextView noResultTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,13 +29,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setTitle("Shopping List");
+        findViewById(R.id.noResult);
 
         ImageView addNewimageView = findViewById(R.id.addNewCategoryImageView);
         addNewimageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddCategoryDialog()
+                showAddCategoryDialog();
 
+            }
+        });
+        initViewVodel();
+    }
+
+    private void initRecyclerView() {
+        
+    }
+
+    private void initViewVodel() {
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewModel.getCategoryListObserver().observe(this, new Observer<List<Category>>() {
+            @Override
+            public void onChanged(List<Category> categories) {
+                if (categories == null) {
+                    noResultTextView.setVisibility(View.VISIBLE);
+                } else {
+                    //show in the recyclerview
+                    noResultTextView.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -47,5 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 dialogBuilder.dismiss();
             }
         });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 }
