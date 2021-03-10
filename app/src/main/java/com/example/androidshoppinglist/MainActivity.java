@@ -4,6 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,14 +24,17 @@ public class MainActivity extends AppCompatActivity {
 
     private MainActivityViewModel viewModel;
     private TextView noResultTextView;
+    private RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getSupportActionBar().setTitle("Shopping List");
-        findViewById(R.id.noResult);
+
+        noResultTextView = findViewById(R.id.noResult);
+        recyclerView = findViewById(R.id.recyclerView);
 
         ImageView addNewimageView = findViewById(R.id.addNewCategoryImageView);
         addNewimageView.setOnClickListener(new View.OnClickListener() {
@@ -40,10 +45,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         initViewVodel();
+        initRecyclerView();
     }
 
     private void initRecyclerView() {
-        
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter();
     }
 
     private void initViewVodel() {
@@ -75,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Enter category name", Toast.LENGTH_LONG).show();
                     return;
                 }
+
+                //here we need to call view model.
                 dialogBuilder.dismiss();
             }
         });
