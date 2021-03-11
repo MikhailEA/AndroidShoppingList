@@ -20,11 +20,12 @@ import com.example.androidshoppinglist.viewmodel.MainActivityViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CategoryListAdapter.HandleCategoryClick {
 
     private MainActivityViewModel viewModel;
     private TextView noResultTextView;
     private RecyclerView recyclerView;
+    private CategoryListAdapter categoryListAdapter;
 
 
     @Override
@@ -50,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter();
+        categoryListAdapter = new CategoryListAdapter(this, this);
+        recyclerView.setAdapter(categoryListAdapter);
     }
 
     private void initViewVodel() {
@@ -60,15 +62,18 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(List<Category> categories) {
                 if (categories == null) {
                     noResultTextView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                 } else {
                     //show in the recyclerview
+                    categoryListAdapter.setCategoryList(categories);
+                    recyclerView.setVisibility(View.VISIBLE);
                     noResultTextView.setVisibility(View.GONE);
                 }
             }
         });
     }
 
-    private void showAddCategoryDialog() {
+    private void showAddCategoryDialog(boolean isForEdit) {
         AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         View dialogView = getLayoutInflater().inflate(R.layout.add_category_layout, null);
         EditText enterCategoryInput = dialogView.findViewById(R.id.enterCategoryInput);
@@ -83,11 +88,33 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
+                if(isForEdit) {
+                    
+                }
+
                 //here we need to call view model.
+                viewModel.insertCategory(name);
                 dialogBuilder.dismiss();
             }
         });
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
+    }
+
+    @Override
+    public void itemClick(Category category) {
+
+    }
+
+    @Override
+    public void removeItem(Category category) {
+        viewModel.deleteCategory(category);
+
+    }
+
+    @Override
+    public void editItem(Category category) {
+
+
     }
 }

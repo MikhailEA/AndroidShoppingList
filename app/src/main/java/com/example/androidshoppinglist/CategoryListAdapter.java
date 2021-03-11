@@ -18,9 +18,11 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     private Context context;
     private List<Category> categoryList;
+    private HandleCategoryClick clickListener;
 
-    public CategoryListAdapter(Context context) {
+    public CategoryListAdapter(Context context, HandleCategoryClick clickListener) {
         this.context = context;
+        this.clickListener = clickListener;
     }
 
     public void setCategoryList(List<Category> categoryList) {
@@ -39,10 +41,30 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     public void onBindViewHolder(@NonNull CategoryListAdapter.MyViewHolder holder, int position) {
         holder.tvCategoryName.setText(this.categoryList.get(position).categoryName);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.itemClick(categoryList.get(position));
+
+
+            }
+        });
+
         holder.editCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clickListener.editItem(categoryList.get(position));
+
                 
+            }
+        });
+
+        holder.removeCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.removeItem(categoryList.get(position));
+
+
             }
         });
 
@@ -67,5 +89,12 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
             removeCategory = view.findViewById(R.id.removeCategory);
             editCategory = view.findViewById(R.id.editCategory);
         }
+    }
+
+    public interface HandleCategoryClick {
+        void itemClick(Category category);
+        void removeItem(Category category);
+        void editItem(Category category);
+
     }
 }
