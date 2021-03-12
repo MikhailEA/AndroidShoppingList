@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
     private TextView noResultTextView;
     private RecyclerView recyclerView;
     private CategoryListAdapter categoryListAdapter;
+    private Category categoryForEdit;
 
 
     @Override
@@ -33,17 +34,13 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Shopping List");
-
         noResultTextView = findViewById(R.id.noResult);
         recyclerView = findViewById(R.id.recyclerView);
-
         ImageView addNewimageView = findViewById(R.id.addNewCategoryImageView);
         addNewimageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddCategoryDialog();
-
-            }
+                showAddCategoryDialog(false);}
         });
         initViewVodel();
         initRecyclerView();
@@ -79,26 +76,32 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
         EditText enterCategoryInput = dialogView.findViewById(R.id.enterCategoryInput);
         TextView createButton = dialogView.findViewById(R.id.createButton);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = enterCategoryInput.getText().toString();
-                if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(MainActivity.this, "Enter category name", Toast.LENGTH_LONG).show();
-                    return;
-                }
+        if (isForEdit) {
+            createButton.setText("Update");
+            enterCategoryInput.setText(categoryForEdit.categoryName);
+        } else {
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String name = enterCategoryInput.getText().toString();
+                    if (TextUtils.isEmpty(name)) {
+                        Toast.makeText(MainActivity.this, "Enter category name", Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
-                if(isForEdit) {
-                    
+                    if (isForEdit) {
+                        categoryForEdit.categoryName = name;
+                        viewModel.updateCategory(categoryForEdit);
+                    } else {
+                        //here we need to call view model.
+                        viewModel.insertCategory(name);
+                    }
+                    dialogBuilder.dismiss();
                 }
-
-                //here we need to call view model.
-                viewModel.insertCategory(name);
-                dialogBuilder.dismiss();
-            }
-        });
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
+            });
+            dialogBuilder.setView(dialogView);
+            dialogBuilder.show();
+        }
     }
 
     @Override
@@ -114,7 +117,10 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
 
     @Override
     public void editItem(Category category) {
-
+        this.categoryForEdit = category;
+        showAddCategoryDialog(true);
 
     }
 }
+
+
