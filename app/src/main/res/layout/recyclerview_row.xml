@@ -34,6 +34,7 @@
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#000000"
+            android:layout_margin="10dp"
             />
 
         <ImageView
@@ -42,8 +43,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="10dp"
-            android:paddingBottom="05sp"
+            android:layout_margin="10dp"
+            android:paddingBottom="05dp"
             android:src = "@drawable/ic_delete"
             />
 
@@ -52,8 +53,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/removeCategory"
-            android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/removeCategory"
+            android:layout_margin="10dp"
+            android:paddingBottom="10dp"
             android:src = "@drawable/ic_edit"
             />
 
