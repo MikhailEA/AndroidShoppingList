@@ -74,34 +74,36 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
         AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         View dialogView = getLayoutInflater().inflate(R.layout.add_category_layout, null);
         EditText enterCategoryInput = dialogView.findViewById(R.id.enterCategoryInput);
-        TextView createButton = dialogView.findViewById(R.id.createButton);
+        TextView createButton  = dialogView.findViewById(R.id.createButton);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
-        if (isForEdit) {
-            createButton.setText("Update");
-            enterCategoryInput.setText(categoryForEdit.categoryName);
-        } else {
-            cancelButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String name = enterCategoryInput.getText().toString();
-                    if (TextUtils.isEmpty(name)) {
-                        Toast.makeText(MainActivity.this, "Enter category name", Toast.LENGTH_LONG).show();
-                        return;
-                    }
 
-                    if (isForEdit) {
-                        categoryForEdit.categoryName = name;
-                        viewModel.updateCategory(categoryForEdit);
-                    } else {
-                        //here we need to call view model.
-                        viewModel.insertCategory(name);
-                    }
-                    dialogBuilder.dismiss();
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogBuilder.dismiss();
+            }
+        });
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = enterCategoryInput.getText().toString();
+                if (TextUtils.isEmpty(name)) {
+                    Toast.makeText(MainActivity.this, "Enter category name", Toast.LENGTH_LONG).show();
+                    return;
                 }
-            });
-            dialogBuilder.setView(dialogView);
-            dialogBuilder.show();
-        }
+                if (isForEdit) {
+                    categoryForEdit.categoryName = name;
+                    viewModel.updateCategory(categoryForEdit);
+                } else
+                    //here we need to call view model.
+                viewModel.insertCategory(name);
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 
     @Override
