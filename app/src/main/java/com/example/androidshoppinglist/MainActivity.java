@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
         TextView createButton  = dialogView.findViewById(R.id.createButton);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
 
+        if (isForEdit) {
+            createButton.setText("Update");
+            enterCategoryInput.setText(categoryForEdit.categoryName);
+        }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
