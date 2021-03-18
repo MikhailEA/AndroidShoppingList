@@ -37,7 +37,6 @@
         android:text="You don't have category list."
         android:textSize="22sp"
         android:textStyle="bold"
-        
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
