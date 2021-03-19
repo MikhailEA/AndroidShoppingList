@@ -35,11 +35,7 @@ public interface ShoppingListDao {
     void updateItems(Items items);
 
     @Delete
-    void deleteItems(Items items);
-
-
-
-
+    void deleteItem(Items items);
 
 
 }
