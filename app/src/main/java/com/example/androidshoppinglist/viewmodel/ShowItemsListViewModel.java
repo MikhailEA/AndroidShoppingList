@@ -25,12 +25,12 @@ public class ShowItemsListViewModel extends AndroidViewModel {
 
     }
 
-    public MutableLiveData<List<Items>> getItemsListObserver() {
+    public MutableLiveData<List<Items>> getCategoryListObserver() {
         return listOfItems;
     }
 
-    public void getAllItemsList(int categoryID) {
-        List<Items> itemsList = appDatabase.shoppingListDao().getAllItemsList(categoryID);
+    public void getAllItemsList(int categoyID) {
+        List<Items> itemsList = appDatabase.shoppingListDao().getAllItemsList(categoyID);
         if (itemsList.size() > 0)
         {
             listOfItems.postValue(itemsList);
