@@ -29,13 +29,13 @@ public interface ShoppingListDao {
     List<Items> getAllItemsList(int catId);
 
     @Insert
-    void insertItems(Items items);
+    void insertItems(Items item);
 
     @Update
-    void updateItems(Items items);
+    void updateItems(Items item);
 
     @Delete
-    void deleteItem(Items items);
+    void deleteItem(Items item);
 
 
 }

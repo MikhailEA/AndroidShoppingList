@@ -26,8 +26,8 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.MyVi
         this.clickListener = clickListener;
     }
 
-    public void setItemsList(List<Items> categoryList) {
-        this.itemsList = categoryList;
+    public void setItemsList(List<Items> itemsList) {
+        this.itemsList = itemsList;
         notifyDataSetChanged();
     }
 
@@ -78,6 +78,10 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.MyVi
         else
             return itemsList.size();
     }
+
+    public void setCategoryList(List<Items> items) {
+    }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvCategoryName;

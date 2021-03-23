@@ -12,12 +12,12 @@ import com.example.androidshoppinglist.db.Items;
 import java.util.List;
 
 
-public class ShowItemsListViewModel extends AndroidViewModel {
+public class ShowItemListActivityViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Items>> listOfItems;
     private AppDatabase appDatabase;
 
-    public ShowItemsListViewModel(@NonNull Application application) {
+    public ShowItemListActivityViewModel(Application application) {
         super(application);
         listOfItems = new MutableLiveData<>();
 
@@ -25,12 +25,12 @@ public class ShowItemsListViewModel extends AndroidViewModel {
 
     }
 
-    public MutableLiveData<List<Items>> getCategoryListObserver() {
+    public MutableLiveData<List<Items>> getItemsListObserver() {
         return listOfItems;
     }
 
-    public void getAllItemsList(int categoyID) {
-        List<Items> itemsList = appDatabase.shoppingListDao().getAllItemsList(categoyID);
+    public void getAllItemsList(int categoryID) {
+        List<Items> itemsList = appDatabase.shoppingListDao().getAllItemsList(categoryID);
         if (itemsList.size() > 0)
         {
             listOfItems.postValue(itemsList);
