@@ -1,6 +1,7 @@
 package com.example.androidshoppinglist;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull ItemsListAdapter.MyViewHolder holder, int position) {
-        holder.tvCategoryName.setText(this.itemsList.get(position).itemName);
+        holder.tvItemName.setText(this.itemsList.get(position).itemName);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +57,6 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.MyVi
             public void onClick(View v) {
                 clickListener.editItem(itemsList.get(position));
 
-                
             }
         });
 
@@ -65,9 +65,14 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.MyVi
             public void onClick(View v) {
                 clickListener.removeItem(itemsList.get(position));
 
-
             }
         });
+
+        if (this.itemsList.get(position).completed) {
+            holder.tvItemName.setPaintFlags(holder.tvItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            holder.tvItemName.setPaintFlags(0);
+        }
 
     }
 
@@ -79,18 +84,14 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.MyVi
             return itemsList.size();
     }
 
-    public void setCategoryList(List<Items> items) {
-    }
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCategoryName;
+        TextView tvItemName;
         ImageView removeCategory;
         ImageView editCategory;
 
         public MyViewHolder(View view) {
             super(view);
-            tvCategoryName = view.findViewById(R.id.tvCategoryName);
+            tvItemName = view.findViewById(R.id.tvCategoryName);
             removeCategory = view.findViewById(R.id.removeCategory);
             editCategory = view.findViewById(R.id.editCategory);
         }

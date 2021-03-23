@@ -24,6 +24,8 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
     private ItemsListAdapter itemsListAdapter;
     private ShowItemListActivityViewModel viewModel;
     private RecyclerView recyclerView;
+    private Items itemToUpdate = null;
+
 
 
     @Override
@@ -47,7 +49,10 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
                     Toast.makeText(ShowItemsListActivity.this, "Enter Item Name", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                saveNewItem(itemName);
+                if (itemToUpdate == null)
+                    saveNewItem(itemName);
+                else
+                    updateNewUpdate(itemName);
             }
         });
         initRecyclerView();
@@ -64,7 +69,7 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
                     findViewById(R.id.noResult).setVisibility(View.VISIBLE);
 
                 } else {
-                    itemsListAdapter.setCategoryList(items);
+                    itemsListAdapter.setItemsList(items);
                     findViewById(R.id.noResult).setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
                 }
@@ -95,7 +100,7 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
     @Override
     public void itemClick(Items item) {
         if (item.completed) {
-            item.completed =false;
+            item.completed = false;
         } else {
             item.completed = true;
         }
@@ -105,11 +110,23 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
 
     @Override
     public void removeItem(Items item) {
+        viewModel.deleteItems(item);
 
     }
 
     @Override
     public void editItem(Items item) {
+        this.itemToUpdate = item;
+        ((EditText) findViewById(R.id.addNewItemInput)).setText(item.itemName);
+
+    }
+
+    private void updateNewUpdate(String newName) {
+        itemToUpdate.itemName = newName;
+        viewModel.updateItems(itemToUpdate);
+        ((EditText) findViewById(R.id.addNewItemInput)).setText("");
+
+        itemToUpdate = null;
 
     }
 }

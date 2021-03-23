@@ -17,7 +17,7 @@ public class Items {
     public  int categoryId;
 
     @ColumnInfo(name = "completed")
-    public  String completed;
+    public  boolean completed;
 
 
 }

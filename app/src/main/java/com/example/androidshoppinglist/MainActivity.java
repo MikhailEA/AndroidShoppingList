@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements CategoryListAdapt
         });
         initViewVodel();
         initRecyclerView();
+        viewModel.getAllCategoryList();
     }
 
     private void initRecyclerView() {

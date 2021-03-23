@@ -15,26 +15,14 @@
         android:layout_marginTop="10dp"
         />
 
-    <EditText
-        android:id="@+id/addNewItemInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Add new item"
-        android:textColor="@color/black"
-        android:paddingTop="35dp"
-        android:inputType="textCapWords"
-        android:singleLine="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constrainBottom_toBottomOf="parent"
-        android:layout_margin="10dp"
-        />
+
 
     <ImageView
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf=""
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="10dp"
         android:paddingBottom="10dp"
         android:src="@drawable/ic_send"
@@ -53,9 +41,20 @@
         android:textStyle="bold"
         />
 
-
-
-
+    <EditText
+        android:id="@+id/addNewItemInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:hint="Add new item"
+        android:inputType="textCapWords"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="677dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
