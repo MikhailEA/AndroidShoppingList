@@ -14,10 +14,10 @@ public class Items {
     public  String itemName;
 
     @ColumnInfo(name = "categoryId")
-    public  String categoryId;
+    public  int categoryId;
 
     @ColumnInfo(name = "completed")
-    public  String completed;
+    public  boolean completed;
 
 
 }
