@@ -15,8 +15,6 @@
         android:layout_marginTop="10dp"
         />
 
-
-
     <ImageView
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
@@ -43,8 +41,8 @@
 
     <EditText
         android:id="@+id/addNewItemInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="356dp"
+        android:layout_height="44dp"
         android:layout_margin="10dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -53,8 +51,8 @@
         android:singleLine="true"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="677dp" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
