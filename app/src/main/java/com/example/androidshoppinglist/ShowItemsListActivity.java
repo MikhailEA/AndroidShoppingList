@@ -1,5 +1,6 @@
 package com.example.androidshoppinglist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -57,6 +59,7 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
         });
         initRecyclerView();
         initViewModel();
+        viewModel.getAllItemsList(category_id);
     }
 
     private void initViewModel() {
@@ -127,6 +130,16 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
         ((EditText) findViewById(R.id.addNewItemInput)).setText("");
 
         itemToUpdate = null;
-
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
